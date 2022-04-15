@@ -17,19 +17,17 @@ pipeline {
                 junit '**/target/*.xml' 
             }
         }
- stage('Deploy') {
+        
+         stage('Deploy') {
             when {
               expression {
                 currentBuild.result == null || currentBuild.result == 'SUCCESS' 
               }
             }
             steps {
-                bat 'make publish'
-            }
-        }stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'make publish'
             }
         }
+
     }
 }
