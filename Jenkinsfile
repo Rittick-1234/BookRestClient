@@ -1,10 +1,21 @@
-node{
-  stage('SCM Checkout'){
-    git 'https://github.com/Rittick-1234/BookRestClient'
-  }
+pipeline {
+    agent any
 
-  stage('Compile-Package'){
-     def mvnHome = tool name: 'maven 3.8.4', type: 'maven'
-    sh "${mvnHome}/bin/mvn package"
-  }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
 }
