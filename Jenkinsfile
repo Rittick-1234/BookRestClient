@@ -4,7 +4,7 @@ pipeline {
     stages {
           stage('Build') {
             steps {
-                bat 'make' 
+                bat 'MinGW32-make' 
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
         }
@@ -13,7 +13,7 @@ pipeline {
                 /* `make check` returns non-zero on test failures,
                 * using `true` to allow the Pipeline to continue nonetheless
                 */
-                bat 'make check || true' 
+                bat 'MinGW32-make check || true' 
                 junit '**/target/*.xml' 
             }
         }
@@ -25,7 +25,7 @@ pipeline {
               }
             }
             steps {
-                sh 'make publish'
+                bat 'MinGW32-make publish'
             }
         }
 
