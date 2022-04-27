@@ -1,33 +1,22 @@
+
 pipeline {
     agent any
 
     stages {
-          stage('Build') {
+        stage('Build') {
             steps {
-                bat 'minGW32-make' 
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
+                echo 'Building..'
             }
         }
-           stage('Test') {
+        stage('Test') {
             steps {
-                /* `make check` returns non-zero on test failures,
-                * using `true` to allow the Pipeline to continue nonetheless
-                */
-                bat 'minGW32-make check || true' 
-                junit '**/target/*.xml' 
+                echo 'Testing..'
             }
         }
-        
-         stage('Deploy') {
-            when {
-              expression {
-                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
-              }
-            }
+        stage('Deploy') {
             steps {
-                bat 'minGW32-make publish'
+                echo 'Deploying....'
             }
         }
-
     }
 }
